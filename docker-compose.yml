@@ -45,7 +45,6 @@ services:
     volumes:
       - mysql-volume:/var/lib/mysql
 
-
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
