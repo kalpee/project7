@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ShopController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", function () {
-    return view("index");
-});
+Route::get('/', [ShopController::class, 'index']);
+
+Route::get('/mycart', [ShopController::class, 'myCart']);
+
+Route::post('/mycart', [ShopController::class, 'addMycart']);
 
 
