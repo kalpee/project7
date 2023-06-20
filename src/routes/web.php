@@ -1,5 +1,7 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\ShopController;
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +14,28 @@ use App\Http\Controllers\ShopController;
 |
 */
 
-Route::get('/', [ShopController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+
+Route::group(['middleware' => ['auth']], function () {
+Route::get('/index', [ShopController::class, 'index'])->name('index');
 
 Route::get('/mycart', [ShopController::class, 'myCart']);
 
 Route::post('/mycart', [ShopController::class, 'addMycart']);
 
+Route::post('/cartdelete', [ShopController::class, 'deleteCart']);
 
+Route::post('/checkout', [ShopController::class, 'checkout']);
+
+Route::get('/order_history', [ShopController::class, 'orderHistory'])->name('order_history');
+
+});
+require __DIR__.'/auth.php';
