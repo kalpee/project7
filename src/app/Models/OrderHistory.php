@@ -9,11 +9,13 @@ class OrderHistory extends Model
 {
     protected $fillable = ['stock_id', 'user_id'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function stock(){
+    public function stock()
+    {
         return $this->belongsTo('App\Models\Stock');
-}
+    }
 }

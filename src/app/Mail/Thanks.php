@@ -11,6 +11,7 @@ class Thanks extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $mail_data;
     /**
      * Create a new message instance.
      *
@@ -19,7 +20,7 @@ class Thanks extends Mailable
     public function __construct($mail_data) //編集
     {
         $this->mail_data = $mail_data; //追記
-    } 
+    }
 
     /**
      * Build the message.
@@ -28,7 +29,7 @@ class Thanks extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mails.thanks',$this->mail_data) //編集
-        ->subject('Larashopでのご購入ありがとうございます'); //追記
-}
+        return $this->markdown('mails.thanks', $this->mail_data) //編集
+            ->subject('Larashopでのご購入ありがとうございます'); //追記
+    }
 }
