@@ -1,16 +1,49 @@
-<form method="post" action="{{ url('/store') }}" enctype="multipart/form-data">
-    @csrf
-    <label for="name">Name:</label>
-    <input type="text" name="name" placeholder="商品名">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+        <div class="d-flex justify-content-end">
+            <a href="{{ url('/mycart') }}">
+                カートを見る
+            </a>
+            <a href="{{ url('/mycart') }}">
+                <img src="{{ asset('image/カートのアイコン素材.png') }}" class="cart">
+            </a>
+        </div>
 
-    <label for="detail">Detail:</label>
-    <textarea name="detail" placeholder="詳細"></textarea>
 
-    <label for="fee">Fee:</label>
-    <input type="number" name="fee" placeholder="価格">
+    </x-slot>
+    <div class="col-sm-4">
+        <div class="mycart_box">
+            <form method="post" action="{{ url('/store') }}" enctype="multipart/form-data">
+                @csrf
+                <label for="name">商品名:</label>
+                <input type="text" class="form-control" name="name" placeholder="商品名" required>
 
-    <label for="imgpath">Image Path:</label>
-    <input type="file" name="imgpath">
+                <label for="detail">詳細:</label>
+                <textarea name="detail" class="form-control" placeholder="詳細" required></textarea>
 
-    <button type="submit">登録</button>
-</form>
+                <label for="fee">価格:</label>
+                <input type="number" class="form-control" name="fee" placeholder="価格" required>
+
+                <label for="imgpath">画像:</label>
+                <input type="file" class="form-control-file" name="imgpath" required>
+                <img id="preview" src="#" alt="preview image" style="max-width:200px; display:none;" />
+
+                <button type="submit" class="btn btn-primary mt-3">登録</button>
+            </form>
+        </div>
+    </div>
+    <a class="text-center" href="/index">商品一覧へ</a>
+</x-app-layout>
+<script>
+    document.querySelector('input[type=file]').addEventListener('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('preview').src = e.target.result;
+            document.getElementById('preview').style.display = 'block';
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+</script>

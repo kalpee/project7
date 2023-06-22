@@ -20,9 +20,10 @@ class ShopController extends Controller
 {
     public function index() //追加
     {
-        $stocks = Stock::Paginate(6); //Eloquantで検索
+        $stocks = Stock::orderBy('created_at', 'desc')->paginate(6); //Eloquantで検索
         return view('shop', compact('stocks'));
     }
+
 
     public function myCart(Cart $cart)
     {

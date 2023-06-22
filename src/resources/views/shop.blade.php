@@ -39,10 +39,11 @@
                                 </form>
                             </div>
 
+
                         </div>
                         @endforeach
                         <a class="text-center" href="/create">商品登録</a>
-                        <a class="text-center" href="/">商品一覧へ</a>
+
                         <div class="text-center" style="width: 200px;margin: 20px auto;">
                             {{ $stocks->links()}}
                         </div>
