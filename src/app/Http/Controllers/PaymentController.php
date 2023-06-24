@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
-use App\Models\Cart; //追加
+use App\Models\Cart;
+use App\Mail\Thanks;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Thanks;
+use Illuminate\Http\Request;
 use Exception;
 
-class PaymentsController extends Controller
+class PaymentController extends Controller
 {
 
     public function payment(Request $request, Cart $cart)
