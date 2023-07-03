@@ -12,7 +12,7 @@ class Cart extends Model
 
     protected $fillable = ['stock_id', 'user_id'];
 
-    public function showCart()
+    public function show()
     {
         $user_id = Auth::id();
 
@@ -31,7 +31,7 @@ class Cart extends Model
     {
         return $this->belongsTo('\App\Models\Stock');
     }
-    public function addCart($stock_id)
+    public function add($stock_id)
     {
         $user_id = Auth::id();
         $cart_add_info = Cart::firstOrCreate(['stock_id' => $stock_id, 'user_id' => $user_id]);
@@ -45,7 +45,7 @@ class Cart extends Model
         return $message;
     }
 
-    public function deleteCart($stock_id)
+    public function remove($stock_id)
     {
         $user_id = Auth::id();
         $delete = $this->where('user_id', $user_id)->where('stock_id', $stock_id)->delete();
@@ -58,7 +58,7 @@ class Cart extends Model
         return $message;
     }
 
-    public function checkoutCart()
+    public function checkout()
     {
         $user_id = Auth::id();
 

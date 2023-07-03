@@ -1,5 +1,7 @@
 <?php
 
+/**参考サイトhttps://note.com/mukae9/n/n12cc13fd4f90 */
+
 namespace App\Http\Controllers;
 
 

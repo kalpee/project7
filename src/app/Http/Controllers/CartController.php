@@ -9,7 +9,7 @@ class CartController extends Controller
 {
     public function index(Cart $cart)
     {
-        $data = $cart->showCart();
+        $data = $cart->show();
         return view('carts.index', $data);
     }
 
@@ -17,9 +17,9 @@ class CartController extends Controller
     {
 
         $stock_id = $request->stock_id;
-        $message = $cart->deleteCart($stock_id);
+        $message = $cart->remove($stock_id);
 
-        $data = $cart->showCart();
+        $data = $cart->show();
 
         return view('carts.index', $data)->with('message', $message);
     }
@@ -28,10 +28,10 @@ class CartController extends Controller
     {
         //カートに追加の処理
         $stock_id = $request->stock_id;
-        $message = $cart->addCart($stock_id);
+        $message = $cart->add($stock_id);
 
         //追加後の情報を取得
-        $data = $cart->showCart();
+        $data = $cart->show();
 
         return view('/carts/index', $data)->with('message', $message);
     }
