@@ -10,8 +10,10 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "@tailwindcss/forms": "^0.5.2",
         "@types/webpack-env": "^1.18.1",
+        "@vitejs/plugin-vue": "^4.2.3",
         "@vue/compiler-sfc": "^3.3.4",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.2",
