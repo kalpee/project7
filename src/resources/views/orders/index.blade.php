@@ -26,12 +26,12 @@
                         <!-- 他のフィールドもここに表示できます。例えば商品名は以下のようになるかもしれません -->
                         Product Name: {{ $order->stock->name }} <br>
                         値段: {{ $order->stock->fee }} <br>
-                        画像:<img src="/image/{{$order->stock->imgpath}}" alt="" class="incart">
+                        画像:<img src="{{ asset('storage/' . $order->stock->imgpath) }}" alt="" class="incart">
                     </p>
                 </div>
             </div>
             @endforeach
         </div>
-        <a href="/index">商品一覧へ</a>
+        <a href="/stocks/index">商品一覧へ</a>
     </body>
 </x-app-layout>

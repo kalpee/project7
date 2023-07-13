@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+/**
+ * 参考サイト https://wayasblog.com/laravel-stripe/
+ * メールアドレス：適当でOK
+ *カード番号：4242 4242 4242 4242
+ *有効期限：未来の日付ならOK
+ *CVC：適当でOK（３桁）
+ */
 
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
 
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
-use App\Models\Cart; //追加
+use App\Models\Cart;
+use App\Mail\Thanks;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Thanks;
+use Illuminate\Http\Request;
 use Exception;
 
-class PaymentsController extends Controller
+class PaymentController extends Controller
 {
 
     public function payment(Request $request, Cart $cart)
@@ -38,7 +45,7 @@ class PaymentsController extends Controller
             // Stripeの処理が成功したらメールを送信する
             $user = Auth::user();
             $mail_data['user'] = $user->name;
-            $mail_data['checkout_items'] = $cart->checkoutCart();
+            $mail_data['checkout_items'] = $cart->checkout();
             Mail::to($user->email)->send(new Thanks($mail_data));
 
             return redirect()->route('complete');

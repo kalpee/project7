@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
+
 class StockController extends Controller
 {
+
+    public function index()
+    {
+        $stocks = Stock::orderBy('created_at', 'desc')->paginate(6); //Eloquantで検索
+        return view('stocks.index', compact('stocks'));
+    }
+
+
     public function create()
     {
-        return view('create');
+        return view('stocks.create');
     }
 
     public function store(Request $request)
@@ -32,6 +41,6 @@ class StockController extends Controller
         $stock->imgpath = $filename;
         $stock->save();
 
-        return redirect('/index');
+        return redirect('/stocks/index');
     }
 }

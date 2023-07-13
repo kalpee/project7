@@ -4,10 +4,10 @@
             {{ __('Dashboard') }}
         </h2>
         <div class="d-flex justify-content-end">
-            <a href="{{ url('/mycart') }}">
+            <a href="{{ url('/carts/index') }}">
                 カートを見る
             </a>
-            <a href="{{ url('/mycart') }}">
+            <a href="{{ url('/carts/index') }}">
                 <img src="{{ asset('image/カートのアイコン素材.png') }}" class="cart">
             </a>
         </div>
@@ -35,7 +35,7 @@
             </form>
         </div>
     </div>
-    <a class="text-center" href="/index">商品一覧へ</a>
+    <a class="text-center" href="/stocks/index">商品一覧へ</a>
 </x-app-layout>
 <script>
     document.querySelector('input[type=file]').addEventListener('change', function(e) {

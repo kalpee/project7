@@ -22,7 +22,7 @@
 
             <div class="card-body">
                 <p>ご登録頂いたメールアドレスへ決済情報をお送りしております。お手続き完了次第商品を発送致します。</p>
-                <a href="/index">商品一覧へ</a>
+                <a href="/stocks/index">商品一覧へ</a>
             </div>
 
         </div>

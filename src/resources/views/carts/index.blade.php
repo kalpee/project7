@@ -19,9 +19,9 @@
                                     <div class="mycart_box">
                                         {{$my_cart->stock->name}} <br>
                                         {{ number_format($my_cart->stock->fee)}}円 <br>
-                                        <img src="/image/{{$my_cart->stock->imgpath}}" alt="" class="incart">
+                                        <img src="{{ asset('storage/' . $my_cart->stock->imgpath) }}" alt="" class="incart">
                                         <br>
-                                        <form action="/cartdelete" method="post">
+                                        <form action="/delete" method="post">
                                             @csrf
                                             <input type="hidden" name="stock_id" value="{{ $my_cart->stock->id }}">
                                             <input type="submit" value="カートから削除する">
@@ -51,7 +51,7 @@
                         <p class="text-center">カートはからっぽです。</p>
                         @endif
                     </div>
-                    <a href="/index">商品一覧へ</a>
+                    <a href="/stocks/index">商品一覧へ</a>
                 </div>
             </div>
         </div>
