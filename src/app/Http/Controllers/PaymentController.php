@@ -1,13 +1,5 @@
 <?php
 
-/**
- * 参考サイト https://wayasblog.com/laravel-stripe/
- * メールアドレス：適当でOK
- *カード番号：4242 4242 4242 4242
- *有効期限：未来の日付ならOK
- *CVC：適当でOK（３桁）
- */
-
 namespace App\Http\Controllers;
 
 use Stripe\Stripe;
@@ -19,36 +11,35 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Exception;
+use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-
     public function payment(Request $request, Cart $cart)
     {
         try {
             // Stripeの処理を行う
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe::setApiKey(env("STRIPE_SECRET"));
 
-            $customer = Customer::create(array(
-                'email' => $request->stripeEmail,
-                'source' => $request->stripeToken
-            ));
-            $totalAmount = $request->input('total_amount');
+            $customer = Customer::create([
+                "email" => $request->stripeEmail,
+                "source" => $request->stripeToken,
+            ]);
+            $totalAmount = $request->input("total_amount");
 
-
-            $charge = Charge::create(array(
-                'customer' => $customer->id,
-                'amount' => $totalAmount,
-                'currency' => 'jpy'
-            ));
+            $charge = Charge::create([
+                "customer" => $customer->id,
+                "amount" => $totalAmount,
+                "currency" => "jpy",
+            ]);
 
             // Stripeの処理が成功したらメールを送信する
             $user = Auth::user();
-            $mail_data['user'] = $user->name;
-            $mail_data['checkout_items'] = $cart->checkout();
+            $mail_data["user"] = $user->name;
+            $mail_data["checkout_items"] = $cart->checkout();
             Mail::to($user->email)->send(new Thanks($mail_data));
 
-            return redirect()->route('complete');
+            return Inertia::location(route("complete"));
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -56,6 +47,6 @@ class PaymentController extends Controller
 
     public function complete()
     {
-        return view('complete');
+        return Inertia::render("Complete");
     }
 }
