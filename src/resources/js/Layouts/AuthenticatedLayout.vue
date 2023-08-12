@@ -37,6 +37,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     商品一覧
                                 </NavLink>
+                                <NavLink
+                                    :href="route('stocks.create')"
+                                    :active="route().current('stocks.create')"
+                                >
+                                    商品登録
+                                </NavLink>
                             </div>
                         </div>
 

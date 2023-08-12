@@ -52,11 +52,13 @@ Route::middleware("auth")->group(function () {
         "stocks.index"
     );
 
-    Route::get("/stocks/create", function () {
-        return Inertia::render("Stocks/Create");
-    });
+    Route::get("/stocks/create", [StockController::class, "create"])->name(
+        "stocks.create"
+    );
 
-    Route::post("/store", [StockController::class, "store"]);
+    Route::post("/stocks/store", [StockController::class, "store"])->name(
+        "stocks.store"
+    );
 
     Route::get("/carts/index", function () {
         return Inertia::render("Cart/Index");

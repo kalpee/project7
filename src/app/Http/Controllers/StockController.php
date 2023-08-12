@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class StockController extends Controller
@@ -29,8 +30,12 @@ class StockController extends Controller
         ]);
 
         $file = $request->file("imgpath");
-        $path = $file->store("public/image");
-        $filename = str_replace("public/", "", $path);
+        $filename = $file->getClientOriginalName();
+        $disk = Storage::build([
+            "driver" => "local",
+            "root" => public_path("images"),
+        ]);
+        $disk->putFileAs("", $file, $filename);
 
         $stock = new Stock();
         $stock->name = $request->name;
