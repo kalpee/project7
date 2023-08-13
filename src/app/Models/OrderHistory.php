@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderHistory extends Model
 {
-    protected $fillable = ['stock_id', 'user_id'];
+    protected $fillable = ["stock_id", "user_id"];
+    protected $appends = ["formatted_created_at"];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo("App\Models\User");
     }
 
     public function stock()
     {
-        return $this->belongsTo('App\Models\Stock');
+        return $this->belongsTo("App\Models\Stock");
+    }
+
+    public function getFormattedCreatedAtAttribute()
+    {
+        return $this->created_at->format("Y-m-d H:i");
     }
 }

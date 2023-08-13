@@ -11,8 +11,28 @@ class OrderController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $orders = OrderHistory::where("user_id", $user_id)->get();
+        $orders = OrderHistory::with("stock")
+            ->where("user_id", $user_id)
+            ->get();
 
         return Inertia::render("Orders/Index", ["orders" => $orders]);
+    }
+
+    public function destroy($id)
+    {
+        $order = OrderHistory::findOrFail($id);
+
+        // オーダーが現在のユーザーに属していることを確認
+        if (Auth::id() !== $order->user_id) {
+            return redirect()
+                ->back()
+                ->with("error", "不正な操作です。");
+        }
+
+        $order->delete();
+
+        return redirect()
+            ->route("orders.index")
+            ->with("message", "注文履歴が削除されました。");
     }
 }

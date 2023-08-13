@@ -67,9 +67,12 @@ Route::middleware("auth")->group(function () {
     Route::post("/carts/index", [CartController::class, "add"]);
     Route::post("/delete", [CartController::class, "delete"]);
 
-    Route::get("/orders/index", function () {
-        return Inertia::render("Order/Index");
-    })->name("order.index");
+    Route::get("/orders/index", [OrderController::class, "index"])->name(
+        "orders.index"
+    );
+    Route::delete("/orders/{id}", [OrderController::class, "destroy"])->name(
+        "orders.destroy"
+    );
 
     // Stripeの処理
     Route::post("/payment", [PaymentController::class, "payment"])->name(
