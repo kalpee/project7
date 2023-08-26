@@ -60,23 +60,35 @@ Route::middleware("auth")->group(function () {
         "stocks.store"
     );
 
-    Route::get("/carts/index", function () {
-        return Inertia::render("Cart/Index");
-    });
+    Route::get("/carts/index", [CartController::class, "index"])->name(
+        "carts.index"
+    );
 
-    Route::post("/carts/index", [CartController::class, "add"]);
-    Route::post("/delete", [CartController::class, "delete"]);
+    Route::post("/carts/add", [CartController::class, "add"])->name(
+        "carts.add"
+    );
+
+    Route::post("/carts/{cart}/update-quantity", [
+        CartController::class,
+        "updateQuantity",
+    ])->name("carts.updateQuantity");
+
+    // Stripeの処理
+    Route::post("/carts/payment", [CartController::class, "payment"])->name(
+        "carts.payment"
+    );
+
+    Route::post("/carts/{cartId}/delete", [
+        CartController::class,
+        "delete",
+    ])->name("carts.delete");
 
     Route::get("/orders/index", [OrderController::class, "index"])->name(
         "orders.index"
     );
+
     Route::delete("/orders/{id}", [OrderController::class, "destroy"])->name(
         "orders.destroy"
-    );
-
-    // Stripeの処理
-    Route::post("/payment", [PaymentController::class, "payment"])->name(
-        "payment"
     );
 
     // 決済完了ページ

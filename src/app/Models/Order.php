@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderHistory extends Model
+class Order extends Model
 {
-    protected $fillable = ["stock_id", "user_id"];
+    protected $fillable = ["stock_id", "user_id", "quantity"];
     protected $appends = ["formatted_created_at"];
 
     public function user()

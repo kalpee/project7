@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderHistory;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -11,7 +11,7 @@ class OrderController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $orders = OrderHistory::with("stock")
+        $orders = Order::with("stock")
             ->where("user_id", $user_id)
             ->get();
 
@@ -20,7 +20,7 @@ class OrderController extends Controller
 
     public function destroy($id)
     {
-        $order = OrderHistory::findOrFail($id);
+        $order = Order::findOrFail($id);
 
         // オーダーが現在のユーザーに属していることを確認
         if (Auth::id() !== $order->user_id) {

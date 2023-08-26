@@ -19,7 +19,7 @@ class PaymentController extends Controller
     {
         try {
             // Stripeの処理を行う
-            Stripe::setApiKey(env("STRIPE_SECRET"));
+            \Stripe\Stripe::setApiKey(config("services.stripe.secret"));
 
             $customer = Customer::create([
                 "email" => $request->stripeEmail,

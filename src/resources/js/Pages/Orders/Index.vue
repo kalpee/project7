@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { Inertia } from "@inertiajs/inertia";
 
-defineProps({
+const props = defineProps({
     orders: Object,
 });
 
@@ -56,6 +56,20 @@ const deleteOrder = (orderId) => {
 
                                         <th
                                             scope="col"
+                                            class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
+                                        >
+                                            <span>個数</span>
+                                        </th>
+
+                                        <th
+                                            scope="col"
+                                            class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
+                                        >
+                                            <span>合計</span>
+                                        </th>
+
+                                        <th
+                                            scope="col"
                                             class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
                                         >
                                             <span>購入日</span>
@@ -72,7 +86,7 @@ const deleteOrder = (orderId) => {
                                 <tbody
                                     class="bg-white divide-y divide-gray-200"
                                 >
-                                    <tr v-for="order in orders">
+                                    <tr v-for="order in props.orders">
                                         <td
                                             class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap"
                                         >
@@ -106,6 +120,19 @@ const deleteOrder = (orderId) => {
                                             class="px-12 py-4 text-sm text-gray-700 whitespace-nowrap"
                                         >
                                             {{ order.stock.fee }}円
+                                        </td>
+                                        <td
+                                            class="px-12 py-4 text-sm text-gray-700 whitespace-nowrap"
+                                        >
+                                            {{ order.quantity }}個
+                                        </td>
+                                        <td
+                                            class="px-12 py-4 text-sm text-gray-700 whitespace-nowrap"
+                                        >
+                                            {{
+                                                order.stock.fee *
+                                                order.quantity
+                                            }}円
                                         </td>
                                         <td
                                             class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap"

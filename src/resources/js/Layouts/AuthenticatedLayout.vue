@@ -49,6 +49,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     購買履歴
                                 </NavLink>
+                                <NavLink
+                                    :href="route('carts.index')"
+                                    :active="route().current('carts.index')"
+                                >
+                                    カート
+                                </NavLink>
                             </div>
                         </div>
 
@@ -167,6 +173,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('orders.index')"
                         >
                             購買履歴
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('carts.index')"
+                            :active="route().current('carts.index')"
+                        >
+                            カート
                         </ResponsiveNavLink>
                     </div>
 
