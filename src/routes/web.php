@@ -60,6 +60,20 @@ Route::middleware("auth")->group(function () {
         "stocks.store"
     );
 
+    Route::get("/stocks/{id}/view", [StockController::class, "view"])->name(
+        "stocks.view"
+    );
+
+    Route::post("/stocks/{id}/update", [
+        StockController::class,
+        "update",
+    ])->name("stocks.update");
+
+    Route::delete("/stocks/{id}/delete", [
+        StockController::class,
+        "delete",
+    ])->name("stocks.delete");
+
     Route::get("/carts/index", [CartController::class, "index"])->name(
         "carts.index"
     );

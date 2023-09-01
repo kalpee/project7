@@ -37,7 +37,7 @@ const addToCart = async (stockId) => {
                     <!-- product - start -->
                     <div v-for="stock in props.stocks.data" :key="stock.id">
                         <a
-                            href="#"
+                            :href="`/stocks/${stock.id}/view`"
                             class="group relative mb-2 block h-80 overflow-hidden rounded-lg bg-gray-100 lg:mb-3"
                         >
                             <img
@@ -50,14 +50,14 @@ const addToCart = async (stockId) => {
 
                         <div>
                             <a
-                                href="#"
+                                :href="`/stocks/${stock.id}/view`"
                                 class="hover:gray-800 mb-1 text-gray-500 transition duration-100 lg:text-lg"
                                 >{{ stock.name }}</a
                             >
 
                             <div class="flex justify-between items-end gap-2">
                                 <span class="font-bold text-gray-800 lg:text-lg"
-                                    >￥{{ stock.fee }}</span
+                                    >￥{{ stock.fee.toLocaleString() }}</span
                                 >
                                 <button
                                     @click="addToCart(stock.id)"
