@@ -1,10 +1,22 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import axios from "axios";
 
-defineProps({
+const props = defineProps({
     stocks: Object,
 });
+
+const addToCart = async (stockId) => {
+    try {
+        const response = await axios.post("/carts/add", { stock_id: stockId });
+        // 追加後の通知やレスポンス処理
+        console.log(response.data.message);
+    } catch (error) {
+        // エラーハンドリング
+        console.error("Error adding to cart:", error);
+    }
+};
 </script>
 
 <template>
@@ -23,9 +35,9 @@ defineProps({
                     class="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-4"
                 >
                     <!-- product - start -->
-                    <div v-for="stock in stocks.data" :key="stock.id">
+                    <div v-for="stock in props.stocks.data" :key="stock.id">
                         <a
-                            href="#"
+                            :href="`/stocks/${stock.id}/view`"
                             class="group relative mb-2 block h-80 overflow-hidden rounded-lg bg-gray-100 lg:mb-3"
                         >
                             <img
@@ -38,15 +50,21 @@ defineProps({
 
                         <div>
                             <a
-                                href="#"
+                                :href="`/stocks/${stock.id}/view`"
                                 class="hover:gray-800 mb-1 text-gray-500 transition duration-100 lg:text-lg"
                                 >{{ stock.name }}</a
                             >
 
-                            <div class="flex items-end gap-2">
+                            <div class="flex justify-between items-end gap-2">
                                 <span class="font-bold text-gray-800 lg:text-lg"
-                                    >￥{{ stock.fee }}</span
+                                    >￥{{ stock.fee.toLocaleString() }}</span
                                 >
+                                <button
+                                    @click="addToCart(stock.id)"
+                                    class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded"
+                                >
+                                    カートに追加
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\OrderHistory;
+use App\Models\Order;
+
 class Cart extends Model
 {
     protected $fillable = ["stock_id", "user_id"];
@@ -15,21 +16,18 @@ class Cart extends Model
     {
         $user_id = Auth::id();
 
-        $data["my_carts"] = $this->where("user_id", $user_id)->get();
+        $data = $this->where("user_id", $user_id)
+            ->with("stock")
+            ->get();
 
-        $data["count"] = 0;
-        $data["sum"] = 0;
-
-        foreach ($data["my_carts"] as $my_cart) {
-            $data["count"]++;
-            $data["sum"] += $my_cart->stock->fee;
-        }
         return $data;
     }
+
     public function stock()
     {
-        return $this->belongsTo("\App\Models\Stock");
+        return $this->belongsTo("\App\Models\Stock", "stock_id");
     }
+
     public function add($stock_id)
     {
         $user_id = Auth::id();
@@ -73,9 +71,10 @@ class Cart extends Model
             $checkout_items = $this->where("user_id", $user_id)->get();
 
             foreach ($checkout_items as $item) {
-                OrderHistory::create([
+                Order::create([
                     "stock_id" => $item->stock_id,
                     "user_id" => $item->user_id,
+                    "quantity" => $item->quantity,
                 ]);
             }
 
@@ -83,11 +82,11 @@ class Cart extends Model
 
             // すべての処理が成功したらコミット
             DB::commit();
+            return true;
         } catch (\Exception $e) {
             // エラーが発生したらロールバック
             DB::rollback();
-            return false;
+            return $e->getMessage();
         }
-        return $checkout_items;
     }
 }

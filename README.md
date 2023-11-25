@@ -35,8 +35,8 @@ docker-compose run app npm run dev
 laravelのキー作成
 php artisan key:generate
 
-マイグレーション
-php artisan migrate
+appコンテナに入ってマイグレーション
+docker exec -it project7_app_1 php artisan migrate
 
 dbコンテナに入る
 mysql -h 127.0.0.1 -P 33306 -u root -p

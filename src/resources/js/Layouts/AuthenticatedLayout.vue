@@ -37,6 +37,24 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     商品一覧
                                 </NavLink>
+                                <NavLink
+                                    :href="route('stocks.create')"
+                                    :active="route().current('stocks.create')"
+                                >
+                                    商品登録
+                                </NavLink>
+                                <NavLink
+                                    :href="route('orders.index')"
+                                    :active="route().current('orders.index')"
+                                >
+                                    購買履歴
+                                </NavLink>
+                                <NavLink
+                                    :href="route('carts.index')"
+                                    :active="route().current('carts.index')"
+                                >
+                                    カート
+                                </NavLink>
                             </div>
                         </div>
 
@@ -72,14 +90,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            プロフィール
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            ログアウト
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -144,6 +162,24 @@ const showingNavigationDropdown = ref(false);
                         >
                             商品一覧
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('stocks.create')"
+                            :active="route().current('stocks.create')"
+                        >
+                            商品登録
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('orders.index')"
+                            :active="route().current('orders.index')"
+                        >
+                            購買履歴
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('carts.index')"
+                            :active="route().current('carts.index')"
+                        >
+                            カート
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -159,14 +195,14 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                プロフィール
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Log Out
+                                ログアウト
                             </ResponsiveNavLink>
                         </div>
                     </div>
