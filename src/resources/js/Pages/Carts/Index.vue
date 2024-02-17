@@ -4,9 +4,11 @@ import { Inertia } from "@inertiajs/inertia";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps(["carts"]);
+const props = defineProps(["carts", "message"]);
 
 const showModal = ref(false);
+
+const flashMessage = ref(props.message ?? "");
 
 const toggleModal = () => {
     showModal.value = !showModal.value;
@@ -85,6 +87,10 @@ const deleteFromCart = (cartId) => {
     <Head title="カート" />
 
     <AuthenticatedLayout>
+        <div v-if="flashMessage" class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 カート
